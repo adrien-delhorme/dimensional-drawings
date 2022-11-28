@@ -24,15 +24,12 @@ The image below shows a portion of the previous image, still primarily a top vie
 A number of elements must come together to implement dimensioning. There must be lines, some with arrows, and some without. Written annotations must accompany the lines to provide dimensions and other written descriptions. In addition, there are a number of conventions associated with annotations and a partial implementation of such functions are included.
 
 #### Getting Started
-Download the zip file [here](http://cannymachines.com/static/downloads/dimlines.zip)
+Clone or download and unzip this repository in your OpenSCAD's libraries folder.
 
-The source for text generation is found at [http://www.thingiverse.com/thing:59817](http://www.thingiverse.com/thing:59817) , and I gratefully acknowledge user PGreenland on that site for creating this dotmatrix style font.
-
-Download his file first, TextGenerator.scad, before attempting to run this program.
-
-Using this file enabled the quick creation of the dimensioning modules found here. A later task associated with text would be the later creation of additional annotating symbols not found within this file. However, it enables a good start to many dimensioning functions.
-
-To use dimlines, you must first include dimlines.scad.
+To use dimlines, you must first include dimlines.scad in your file:
+```
+use <dimensional-drawings/dimlines.scad>;
+```
 
 #### Lines
 This module draws a line that can have an arrow on either end. Because the intended use is to be viewed strictly from above, the height of the line is set arbitrarily thin.

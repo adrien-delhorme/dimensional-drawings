@@ -64,8 +64,6 @@
  * Created by Don Smiley
  */
 
-use <OpenSCAD_3D_Text_Generator/TextGenerator.scad>
-
 //  these variables are used within the modules
 DIM_CENTER = 0;
 DIM_LEFT = 1;
@@ -203,16 +201,17 @@ module dimensions(length, line_width=DIM_LINE_WIDTH, loc=DIM_CENTER) {
 
     text = str(length);
     space = len(text) * DIM_FONTSCALE * 7;
+    margin = 3;
 
     if (loc == DIM_CENTER) {
-        line(length=length / 2 - space / 2, width=line_width, height=DIM_HEIGHT,
+        line(length=length / 2 - space / 2 - margin, width=line_width, height=DIM_HEIGHT,
              left_arrow=true, right_arrow=false);
-        translate([(length) / 2 - space / 2 * .9, -DIM_FONTSCALE * 3, 0])
+        translate([length / 2 - space / 2, -DIM_FONTSCALE * 4, 0])
         scale([DIM_FONTSCALE, DIM_FONTSCALE, DIM_FONTSCALE])
-        drawtext(text);
+        text(text);
 
-        translate([length / 2 + space / 2, 0, 0])
-        line(length=length / 2 - space / 2, width=line_width, height=DIM_HEIGHT,
+        translate([length / 2 + space / 2 + margin, 0, 0])
+        line(length=length / 2 - space / 2 - margin, width=line_width, height=DIM_HEIGHT,
              left_arrow=false, right_arrow=true);
     } else {
 
@@ -222,7 +221,7 @@ module dimensions(length, line_width=DIM_LINE_WIDTH, loc=DIM_CENTER) {
 
             translate([-space, -DIM_FONTSCALE * 3, 0])
             scale([DIM_FONTSCALE, DIM_FONTSCALE, DIM_FONTSCALE])
-            drawtext(text);
+            text(text);
         } else {
             if (loc == DIM_RIGHT) {
                 line(length=length, width=line_width, height=DIM_HEIGHT,
@@ -230,7 +229,7 @@ module dimensions(length, line_width=DIM_LINE_WIDTH, loc=DIM_CENTER) {
 
                 translate([length + space, -DIM_FONTSCALE * 3, 0])
                 scale([DIM_FONTSCALE, DIM_FONTSCALE, DIM_FONTSCALE])
-                drawtext(text);
+                text(text);
             } else {
                 if (loc == DIM_OUTSIDE) {
 
@@ -241,7 +240,7 @@ module dimensions(length, line_width=DIM_LINE_WIDTH, loc=DIM_CENTER) {
                     translate([(length) / 2 - space / 2 * .9,
                               -DIM_FONTSCALE * 3, 0])
                     scale([DIM_FONTSCALE, DIM_FONTSCALE, DIM_FONTSCALE])
-                    drawtext(text);
+                    text(text);
 
                     translate([length, 0, 0])
                     line(length=length / 2, width=line_width, height=DIM_HEIGHT,
@@ -281,7 +280,7 @@ module leader_line(angle, radius, angle_length, horz_line_length,
 
             translate([(horz_line_length + space), -DIM_FONTSCALE * 3,  0])
             scale([DIM_FONTSCALE, DIM_FONTSCALE, DIM_FONTSCALE])
-            drawtext(text);
+            text(text);
 
             if (do_circle) {
                 translate([(horz_line_length + space + text_length/2),
@@ -303,7 +302,7 @@ module leader_line(angle, radius, angle_length, horz_line_length,
                       -DIM_FONTSCALE * 3,
                       0])
             scale([DIM_FONTSCALE, DIM_FONTSCALE, DIM_FONTSCALE])
-            drawtext(text);
+            text(text);
 
         }
     }
@@ -358,11 +357,11 @@ module titleblock(lines, descs, details) {
             rotate([0, 0, 90])
             scale([DIM_FONTSCALE * line[4], DIM_FONTSCALE * line[4],
                   DIM_FONTSCALE * line[4]])
-            drawtext(line[3]);
+            text(line[3]);
         } else {
             scale([DIM_FONTSCALE * line[4], DIM_FONTSCALE * line[4],
                   DIM_FONTSCALE * line[4]])
-            drawtext(line[3]);
+            text(line[3]);
         }
     }
 
@@ -372,11 +371,11 @@ module titleblock(lines, descs, details) {
             rotate([0, 0, 90])
             scale([DIM_FONTSCALE * line[4], DIM_FONTSCALE * line[4],
                   DIM_FONTSCALE * line[4]])
-            drawtext(line[3]);
+            text(line[3]);
         } else {
             scale([DIM_FONTSCALE * line[4], DIM_FONTSCALE * line[4],
                   DIM_FONTSCALE * line[4]])
-            drawtext(line[3]);
+            text(line[3]);
         }
     }
 
@@ -544,7 +543,7 @@ module sample_revisionblock(revisions) {
                 translate([(cols[col] + desc_x) * DIM_LINE_WIDTH,
                     ((row + 1) * row_height + desc_y) * DIM_LINE_WIDTH, 0])
                 scale([DIM_FONTSCALE, DIM_FONTSCALE, DIM_FONTSCALE])
-                drawtext(revisions[row][col]);
+                text(revisions[row][col]);
             }
         }
 
